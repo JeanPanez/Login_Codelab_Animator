@@ -12,17 +12,26 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
-//Crear mi clase MyApp
 class MyApp extends StatelessWidget {
-  const MyApp ({Key? key}): super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build (BuildContext context) {
+  Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'My Login',
-      theme: ThemeData(primarySwatch: Colors.grey),
-      home: RegisterPage(),
+      title: 'Artic Tec',
+      home: Scaffold(
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [Colors.blue, Colors.purple],
+            ),
+          ),
+          child: RegisterPage(),
+        ),
+      ),
     );
   }
 }

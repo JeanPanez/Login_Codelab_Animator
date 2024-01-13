@@ -3,9 +3,10 @@ import 'dart:async';
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:login/home.dart';
-import 'package:provider/provider.dart';      
+import 'package:provider/provider.dart';
 
 void main() {
+  // Desactivar cinta de depuración en modo de lanzamiento
   WidgetsApp.debugAllowBannerOverride = false;
   runApp(const MyApp());
 }
@@ -53,7 +54,8 @@ class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _animation;
 
@@ -102,7 +104,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
               size: 48,
             ), */
             const SizedBox(height: 20),
-            Text('Loading... ${_animation.value.toInt()}%'),
+            Text('Cargando... ${_animation.value.toInt()}%'),
           ],
         ),
       ),
@@ -298,7 +300,8 @@ class SettingsPage extends StatelessWidget {
             children: [
               ElevatedButton.icon(
                 onPressed: () {
-                  Navigator.push(context,MaterialPageRoute(builder: (context) => MyHomePage()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MyHomePage()));
                 },
                 icon: const Icon(Icons.app_settings_alt_sharp),
                 label: const Text('Ajustes'),
@@ -307,7 +310,8 @@ class SettingsPage extends StatelessWidget {
               ElevatedButton.icon(
                 onPressed: () {
                   // Lógica del botón
-                  Navigator.push(context,MaterialPageRoute(builder: (context) => MyHomePage()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MyHomePage()));
                 },
                 icon: const Icon(Icons.app_shortcut_sharp),
                 label: const Text('Personalizacion'),
@@ -319,10 +323,6 @@ class SettingsPage extends StatelessWidget {
     );
   }
 }
-
-
-
-
 
 ///////////////
 class HomePage extends StatefulWidget {
