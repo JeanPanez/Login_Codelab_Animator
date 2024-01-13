@@ -39,6 +39,7 @@ dependencies:
   firebase_auth: ^4.6.3
   provider: ^6.0.5
   english_words: ^4.0.0
+  icon: ^2.2.1
 
 dev_dependencies:
   flutter_test:
@@ -65,6 +66,14 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
   - assets/images/
+  - assets/corvette_front.png
+  - assets/corvette_back.png
+  - assets/corvette_front2.png
+  - assets/interior1.png
+  - assets/interior2.png
+  - assets/lambo_front.png
+  - assets/lambo_back.png
+  - assets/interior_lambo.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

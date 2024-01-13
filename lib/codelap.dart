@@ -4,6 +4,7 @@ import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:login/home.dart';
 import 'package:provider/provider.dart';
+import 'package:login/card.dart';
 
 void main() {
   // Desactivar cinta de depuración en modo de lanzamiento
@@ -136,6 +137,10 @@ class _MyHomePageState extends State<MyHomePage> {
       case 3:
         page = HomePage();
         break;
+      case 4:
+        page = ModelPage(carList: carList);
+        break;
+
       default:
         throw UnimplementedError('no widget for $selectedIndex');
     }
@@ -163,6 +168,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   NavigationRailDestination(
                     icon: const Icon(Icons.amp_stories_sharp),
                     label: const Text('Animator'),
+                  ),
+                  NavigationRailDestination(
+                    icon: const Icon(Icons.car_rental_sharp),
+                    label: const Text('model'),
                   ),
                 ],
                 selectedIndex: selectedIndex,
@@ -438,6 +447,249 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
+    );
+  }
+}
+
+/////////////model/////////////////
+///
+class ModelPage extends StatelessWidget {
+  final CarList carList;
+
+  ModelPage({required this.carList});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Modelos de Automóviles'),
+      ),
+      body: ListView.builder(
+        itemCount: carList.cars.length,
+        itemBuilder: (context, index) {
+          final car = carList.cars[index];
+          return ListTile(
+            title: Text(car.carName),
+            subtitle: Text(car.companyName),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CarDetailsPage(car: car),
+                ),
+              );
+            },
+          );
+        },
+      ),
+    );
+  }
+}
+
+double iconSize = 30;
+
+CarList carList = CarList(cars: [
+  Car(
+    companyName: "Chevrolet",
+    carName: "Corvette",
+    price: 2100,
+    imgList: [
+      "corvette_front.png",
+      "corvette_back.png",
+      "interior1.png",
+      "interior2.png",
+      "corvette_front2.png",
+    ],
+    offerDetails: [
+      {Icon(Icons.bluetooth, size: iconSize): "Automatic"},
+      {Icon(Icons.airline_seat_individual_suite, size: iconSize): "4 seats"},
+      {Icon(Icons.pin_drop, size: iconSize): "6.4L"},
+      {Icon(Icons.shutter_speed, size: iconSize): "5HP"},
+      {Icon(Icons.invert_colors, size: iconSize): "Variant Colours"},
+    ],
+    specifications: [
+      //Icon(Icons.av_timer, size: iconSize): {"Milegp(upto)": "14.2 kmpl"},
+      //Icon(Icons.power, size: iconSize): {"Engine(upto)": "3996 cc"},
+      //Icon(Icons.assignment_late, size: iconSize): {"BHP": "700"},
+      //Icon(Icons.account_balance_wallet, size: iconSize): {"More Specs": "14.2 kmpl"},
+      //Icon(Icons.cached, size: iconSize): {"More Specs": "14.2 kmpl"},
+    ],
+    features: [
+      {Icon(Icons.bluetooth, size: iconSize): "Bluetooth"},
+      {Icon(Icons.usb, size: iconSize): "USB Port"},
+      {Icon(Icons.power_settings_new, size: iconSize): "Keyless"},
+      {Icon(Icons.android, size: iconSize): "Android Auto"},
+      {Icon(Icons.ac_unit, size: iconSize): "AC"},
+    ],
+  ),
+  Car(
+    companyName: "Lamborghini",
+    carName: "Aventador",
+    price: 3000,
+    imgList: [
+      "lambo_front.png",
+      "interior_lambo.png",
+      "lambo_back.png",
+    ],
+    offerDetails: [
+      {Icon(Icons.bluetooth, size: iconSize): "Automatic"},
+      {Icon(Icons.airline_seat_individual_suite, size: iconSize): "4 seats"},
+      {Icon(Icons.pin_drop, size: iconSize): "6.4L"},
+      {Icon(Icons.shutter_speed, size: iconSize): "5HP"},
+      {Icon(Icons.invert_colors, size: iconSize): "Variant Colours"},
+    ],
+    specifications: [
+      //{
+      //  Icon(Icons.av_timer, size: iconSize): {"Milegp(upto)": "14.2 kmpl"}
+      //},
+      //{
+      //  Icon(Icons.power, size: iconSize): {"Engine(upto)": "3996 cc"}
+      //},
+      //{
+      //  Icon(Icons.assignment_late, size: iconSize): {"BHP": "700"}
+      //},
+      //{
+      //  Icon(Icons.account_balance_wallet, size: iconSize): {
+      //    "More Specs": "14.2 kmpl"
+      //  }
+      //},
+      //{
+      //  Icon(Icons.cached, size: iconSize): {"More Specs": "14.2 kmpl"}
+      //},
+    ],
+    features: [
+      {Icon(Icons.bluetooth, size: iconSize): "Bluetooth"},
+      {Icon(Icons.usb, size: iconSize): "USB Port"},
+      {Icon(Icons.power_settings_new, size: iconSize): "Keyless"},
+      {Icon(Icons.android, size: iconSize): "Android Auto"},
+      {Icon(Icons.ac_unit, size: iconSize): "AC"},
+    ],
+  ),
+]);
+
+class CarList {
+  List<Car> cars;
+
+  CarList({
+    required this.cars,
+  });
+}
+
+class Car {
+  String companyName;
+  String carName;
+  int price;
+  List<String> imgList;
+  List<Map<Icon, String>> offerDetails;
+  List<Map<Icon, String>> features;
+  List<Map<Icon, Map<String, String>>> specifications;
+
+  Car({
+    required this.companyName,
+    required this.carName,
+    required this.price,
+    required this.imgList,
+    required this.offerDetails,
+    required this.features,
+    required this.specifications,
+  });
+}
+
+class CarDetailsPage extends StatelessWidget {
+  final Car car;
+
+  CarDetailsPage({required this.car});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(car.carName),
+      ),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Muestra información detallada del automóvil
+            Text('Compañía: ${car.companyName}',
+                style: TextStyle(fontSize: 18.0)),
+            Text('Precio: \$${car.price}', style: TextStyle(fontSize: 18.0)),
+            SizedBox(height: 16.0),
+
+            // Agrega secciones para las imágenes, detalles de oferta, especificaciones y características
+            Text('Imágenes del automóvil:',
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+            SizedBox(height: 8.0),
+            buildImageSlider(car.imgList),
+
+            SizedBox(height: 16.0),
+            Text('Detalles de la oferta:',
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+            SizedBox(height: 8.0),
+            buildDetailsList(car.offerDetails),
+
+            SizedBox(height: 16.0),
+            Text('Especificaciones:',
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+            SizedBox(height: 8.0),
+            buildDetailsList(car.specifications.cast<Map<Icon, String>>()),
+
+            SizedBox(height: 16.0),
+            Text('Características:',
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+            SizedBox(height: 8.0),
+            buildDetailsList(car.features),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // Métodos auxiliares para construir widgets específicos
+
+  Widget buildImageSlider(List<String> imgList) {
+    // Implementa la lógica para construir un slider de imágenes
+    // Puedes usar un Carousel, PageView, o cualquier otro widget según tus preferencias
+    // Aquí un ejemplo simple con PageView:
+    return Container(
+      height: 200.0,
+      child: PageView.builder(
+        itemCount: imgList.length,
+        itemBuilder: (context, index) {
+          return Image.asset(
+            imgList[index],
+            width: 300.0,
+            fit: BoxFit.cover,
+          );
+        },
+      ),
+    );
+  }
+
+  Widget buildDetailsList(List<Map<Icon, String>> details) {
+    // Implementa la lógica para construir una lista de detalles
+    // Puedes usar un ListView, Column, o cualquier otro widget según tus preferencias
+    // Aquí un ejemplo simple con Column:
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: details.map((detail) {
+        final icon = detail.keys.first;
+        final value = detail.values.first;
+
+        return Padding(
+          padding: EdgeInsets.only(bottom: 4.0),
+          child: Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(right: 8.0),
+                child: icon,
+              ),
+              Text(value),
+            ],
+          ),
+        );
+      }).toList(),
     );
   }
 }
